@@ -4,6 +4,9 @@ import jakarta.persistence.*
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.data.repository.CrudRepository
+import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
+import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -21,8 +24,10 @@ class MessageController(val service: MessageService) {
     fun index(): List<Message> = service.findMessages()
 
     @GetMapping("/{id}")
-    fun index(@PathVariable id: String): List<Message> =
-        service.findMessageById(id)
+    fun index(@PathVariable id: String): ResponseEntity<List<Message>> {
+        val messages = service.findMessageById(id)
+        return if (messages.isNotEmpty()) ResponseEntity.ok(messages) else ResponseEntity(HttpStatus.NOT_FOUND)
+    }
 
     @PostMapping("/")
     fun post(@RequestBody message: Message) {
