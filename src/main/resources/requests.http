@@ -30,6 +30,6 @@ GET http://localhost:8080/
 ### Get the message by its id
 GET http://localhost:8080/b9e70682-9158-487a-8613-c2a8e2a90ea5
 
-### Get the message by unexisting id
+### Get unexisting message
 GET http://localhost:8080/b9e70682-9158-487a-8613-c2a8e2a90ea6
 
